@@ -32,7 +32,7 @@
     container.
   </description>
   <url>https://github.com/handcraftedbits/arquillian-incontainerurl-extension</url>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <inceptionYear>2015</inceptionYear>
 
   <developers>
