@@ -1,4 +1,4 @@
-# Arquillian In-container URL Extension [![Build Status](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension.svg?branch=development)](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension)
+# Arquillian In-container URL Extension [![Build Status](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension.svg?branch=release/1.0.1)](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension)
 
 An extension for [Arquillian](http://arquillian.org) that allows you to reference the base URL of your test deployment
 from within the container.  This makes it easy to e.g. test a REST service and check its effect on backend components in
@@ -12,7 +12,7 @@ Add the extension in your `pom.xml` file:
 <dependency>
   <groupId>com.handcraftedbits.arquillian</groupId>
   <artifactId>arquillian-incontainerurl-extension</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <scope>test</scope>
 </dependency>
 ```

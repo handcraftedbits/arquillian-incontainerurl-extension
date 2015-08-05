@@ -32,8 +32,14 @@
     container.
   </description>
   <url>https://github.com/handcraftedbits/arquillian-incontainerurl-extension</url>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <inceptionYear>2015</inceptionYear>
+
+  <parent>
+    <groupId>com.handcraftedbits</groupId>
+    <artifactId>handcraftedbits-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
   <developers>
     <developer>
@@ -69,8 +75,6 @@
   <properties>
     <name.license>apache_v2</name.license>
     <path.wildfly>${project.build.directory}/wildfly-${version.dep.wildfly}</path.wildfly>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.java>1.7</version.java>
 
     <version.dep.arquillian>1.1.8.Final</version.dep.arquillian>
     <version.dep.javaee>1.0.3.Final</version.dep.javaee>
@@ -79,14 +83,10 @@
     <version.dep.shrinkwrap>1.2.2</version.dep.shrinkwrap>
     <version.dep.wildfly>8.2.0.Final</version.dep.wildfly>
 
-    <version.plugin.compiler>3.3</version.plugin.compiler>
     <version.plugin.dependency>2.10</version.plugin.dependency>
-    <version.plugin.gpg>1.6</version.plugin.gpg>
-    <version.plugin.javadoc>2.10.3</version.plugin.javadoc>
-    <version.plugin.license>1.8</version.plugin.license>
-    <version.plugin.nexus-staging>1.6.5</version.plugin.nexus-staging>
-    <version.plugin.source>2.4</version.plugin.source>
     <version.plugin.surfire>2.18.1</version.plugin.surfire>
+
+    <plugin.source.skip>false</plugin.source.skip>
   </properties>
 
   <dependencyManagement>
@@ -111,8 +111,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>${version.dep.junit}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.container</groupId>
@@ -153,22 +151,16 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${version.plugin.compiler}</version>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version.plugin.javadoc}</version>
           <configuration>
-            <source>${version.java}</source>
-            <target>${version.java}</target>
+            <sourcepath>
+              ${basedir}/src/main/java/com/handcraftedbits/arquillian/extension/incontainerurl/api
+            </sourcepath>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
-
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
 
     <plugins>
       <plugin>
@@ -212,122 +204,6 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <version>${version.plugin.license}</version>
-        <executions>
-          <execution>
-            <id>update-copyright</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>update-file-header</goal>
-            </goals>
-            <configuration>
-              <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
-              <licenseName>${name.license}</licenseName>
-              <roots>
-                <root>.</root>
-              </roots>
-              <includes>
-                <include>pom.xml</include>
-                <include>src/main/java/**/*</include>
-                <include>src/test/java/**/*</include>
-              </includes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>update-license</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>update-project-license</goal>
-            </goals>
-            <configuration>
-              <licenseName>${name.license}</licenseName>
-              <licenseFile>${basedir}/LICENSE</licenseFile>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>release</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${version.plugin.gpg}</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${version.plugin.javadoc}</version>
-            <configuration>
-              <sourcepath>
-                ${basedir}/src/main/java/com/handcraftedbits/arquillian/extension/incontainerurl/api
-              </sourcepath>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${version.plugin.source}</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${version.plugin.nexus-staging}</version>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-
-      <distributionManagement>
-        <snapshotRepository>
-          <id>ossrh</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-          <id>ossrh</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-      </distributionManagement>
-    </profile>
-  </profiles>
 </project>
