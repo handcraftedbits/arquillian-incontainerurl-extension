@@ -1,8 +1,13 @@
-# Arquillian In-container URL Extension [![Build Status](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension.svg?branch=release/1.0.1)](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension)
+# Arquillian In-container URL Extension [![Build Status](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension.svg?branch=development)](https://travis-ci.org/handcraftedbits/arquillian-incontainerurl-extension)
 
 An extension for [Arquillian](http://arquillian.org) that allows you to reference the base URL of your test deployment
 from within the container.  This makes it easy to e.g. test a REST service and check its effect on backend components in
 the same test case.
+
+# Deprecation Notice
+
+This extension is officially deprecated since [ARQ-540](https://issues.jboss.org/browse/ARQ-540) has been resolved.
+You can now use `@ArquillianResource` from within the container!
 
 # Usage
 
